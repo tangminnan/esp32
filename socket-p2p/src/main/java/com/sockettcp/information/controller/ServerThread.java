@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+
+import com.sockettcp.BootdoApplication;
 	
 
 /**
@@ -36,7 +38,7 @@ public class ServerThread extends Thread {
 			System.out.println("新连接，客户端的IP：" + address.getHostAddress() + " ,端口：" + socket.getPort());
 	 
 			try {
-				pw.write("已有客户端列表：" + Server.connections + "\n");
+				pw.write("已有客户端列表：" + BootdoApplication.connections + "\n");
 	 
 				// 获取输入流，并读取客户端信息
 				String info = null;
@@ -55,7 +57,7 @@ public class ServerThread extends Thread {
 						
 						System.out.println("打洞到 " + ip + ":" + port);
 						
-						for (ServerThread server : Server.connections) {
+						for (ServerThread server : BootdoApplication.connections) {
 							if (server.socket.getInetAddress().getHostAddress().equals(ip)
 									&& server.socket.getPort() == Integer.parseInt(port)) {
 								
@@ -79,7 +81,7 @@ public class ServerThread extends Thread {
 				e.printStackTrace();
 			} finally {
 				System.out.println("客户端关闭：" + address.getHostAddress() + " ,端口：" + socket.getPort());
-				Server.connections.remove(this);
+				BootdoApplication.connections.remove(this);
 				// 关闭资源
 				try {
 					if (pw != null) {
