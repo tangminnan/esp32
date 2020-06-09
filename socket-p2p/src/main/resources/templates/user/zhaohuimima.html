@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" href="../css/css.css" type="text/css">
+<title>找回密码</title>
+<script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="../js/Font.js"></script>
+</head>
+<body>
+	<div class="_tit tit font-32"><a href="javascript:history.back(-1)"><em></em></a>找回密码</div>
+	<div class="zhaohui font-32">
+		<div class="ZHmm bg-white">
+			<input id="phone" class="tell fl" type="text" maxlength="11" placeholder="请输入手机号"/>
+			<input  class="fr" type="button" id="btn" value="获取验证码" onclick="getSms(this)" /> 
+		</div>
+		<input id="codenum" class="newmm" type="text" placeholder="请输入验证码"/>
+		<input id="password" class="newmm" type="password" placeholder="输入新密码（数字与密码结合至少8位数）"/>
+	</div>
+	<a href="denglu.html"><input class="btn" type="button" value="确定" onclick="retpwd()"/></a>
+</body>
+</html>
+<script type="text/javascript"> 
+	var countdown=60; 
+	
+	function getSms(val){
+		$.ajax({
+			url: '/getSms',
+			type: 'post',
+			data: {
+				'phone': $('#phone').val(),
+				'type':2
+			},
+			success : function(message) {
+				if(message.msg == "发送成功"){
+					settime(val)
+				}
+			}
+		})
+	}
+	function settime(val) { 
+		if (countdown == 0) { 
+			val.removeAttribute("disabled");    
+			val.value="免费获取验证码"; 
+			countdown = 60; 
+		} else { 
+			val.setAttribute("disabled", true); 
+			val.value="重新发送(" + countdown +"s)"; 
+			countdown--; 
+		} 
+		setTimeout(function() { 
+			settime(val) 
+		},1000) 
+	} 
+	
+	function retpwd(){
+		$.ajax({
+			url: '/retpwd',
+			type: 'post',
+			data: {
+				'username': $('#phone').val(),
+				'codenum':$('#codenum').val(),
+				'password':$('#password').val()
+			},
+			success : function(message) {
+				alert("修改成功")
+			}
+		})
+	}
+</script> 

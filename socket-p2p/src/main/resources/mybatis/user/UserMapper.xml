@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sockettcp.owneruser.dao.UserDao">
+
+	<select id="get" resultType="com.sockettcp.owneruser.domain.UserDO">
+		select `id`,`heard_url`,`username`,QRCode,`sex`,`birthday`,`login_time`,`used_time`,`nickname`,`user_id`,`open_id`,`password`,`phone`,`name`,`register_time`,`update_time`,`graduate_institutions`,`profession_name`,`first_degree`,`highest_education`,`subject`,`mailing_address`,`delete_flag`,`registration_source`,`level`,`audit_status`,`export_status`,`redound`,`separate_into`,`teacher_level`,`question_money`,`user_login_type`,ifnull(coupon_count,0) coupon_count,ifnull(integral,0) integral,ifnull(gold,0) gold from t_user where id = #{value}
+	</select>
+
+	<select id="getbyname" resultType="com.sockettcp.owneruser.domain.UserDO">
+		select `id`,`heard_url`,`username`,`sex`,`birthday`,`login_time`,`used_time`,`nickname`,`user_id`,`open_id`,`password`,`phone`,`name`,`register_time`,`update_time`,`graduate_institutions`,`profession_name`,`first_degree`,`highest_education`,`subject`,`mailing_address`,`delete_flag`,`registration_source`,`level`,`audit_status`,`export_status`,`redound`,`separate_into`,`teacher_level`,`question_money`,`user_login_type`,ifnull(coupon_count,0) coupon_count,ifnull(integral,0) integral,ifnull(gold,0) gold  from t_user where username = #{value}
+	</select>
+	
+	<select id="getByOpenid" resultType="com.sockettcp.owneruser.domain.UserDO">
+		select `id`,`heard_url`,`username`,`sex`,`birthday`,`login_time`,`used_time`,`nickname`,`user_id`,`open_id`,`password`,`phone`,`name`,`register_time`,`update_time`,`graduate_institutions`,`profession_name`,`first_degree`,`highest_education`,`subject`,`mailing_address`,`delete_flag`,`registration_source`,`level`,`audit_status`,`export_status`,`redound`,`separate_into`,`teacher_level`,`question_money`,`user_login_type`,coupon_count,integral,gold  from t_user where open_id = #{value}
+	</select>
+
+	<select id="list" resultType="com.sockettcp.owneruser.domain.UserDO">
+		select `id`,`heard_url`,`username`,`sex`,`birthday`,`login_time`,`used_time`,`nickname`,`user_id`,`open_id`,`password`,`phone`,`name`,`register_time`,`update_time`,`graduate_institutions`,`profession_name`,`first_degree`,`highest_education`,`subject`,`mailing_address`,`delete_flag`,`registration_source`,`level`,`audit_status`,`export_status`,`redound`,`separate_into`,`teacher_level`,`question_money`,`user_login_type`,ifnull(coupon_count,0) coupon_count,ifnull(integral,0) integral,ifnull(gold,0) gold  from t_user
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="heardUrl != null and heardUrl != ''"> and heard_url = #{heardUrl} </if>
+		  		  <if test="username != null and username != ''"> and username = #{username} </if>
+		  		  <if test="sex != null and sex != ''"> and sex = #{sex} </if>
+		  		  <if test="birthday != null and birthday != ''"> and birthday = #{birthday} </if>
+		  		  <if test="loginTime != null and loginTime != ''"> and login_time = #{loginTime} </if>
+		  		  <if test="usedTime != null and usedTime != ''"> and used_time = #{usedTime} </if>
+		  		  <if test="nickname != null and nickname != ''"> and nickname = #{nickname} </if>
+		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+		  		  <if test="openId != null and openId != ''"> and open_id = #{openId} </if>
+		  		  <if test="password != null and password != ''"> and password = #{password} </if>
+		  		  <if test="phone != null and phone != ''"> and phone = #{phone} </if>
+		  		  <if test="name != null and name != ''"> and name = #{name} </if>
+		  		  <if test="registerTime != null and registerTime != ''"> and register_time = #{registerTime} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  <if test="graduateInstitutions != null and graduateInstitutions != ''"> and graduate_institutions = #{graduateInstitutions} </if>
+		  		  <if test="professionName != null and professionName != ''"> and profession_name = #{professionName} </if>
+		  		  <if test="firstDegree != null and firstDegree != ''"> and first_degree = #{firstDegree} </if>
+		  		  <if test="highestEducation != null and highestEducation != ''"> and highest_education = #{highestEducation} </if>
+		  		  <if test="subject != null and subject != ''"> and subject = #{subject} </if>
+		  		  <if test="mailingAddress != null and mailingAddress != ''"> and mailing_address = #{mailingAddress} </if>
+		  		  <if test="deleteFlag != null and deleteFlag != ''"> and delete_flag = #{deleteFlag} </if>
+		  		  <if test="registrationSource != null and registrationSource != ''"> and registration_source = #{registrationSource} </if>
+		  		  <if test="level != null and level != ''"> and level = #{level} </if>
+		  		  <if test="auditStatus != null and auditStatus != ''"> and audit_status = #{auditStatus} </if>
+		  		  <if test="exportStatus != null and exportStatus != ''"> and export_status = #{exportStatus} </if>
+		  		  <if test="redound != null and redound != ''"> and redound = #{redound} </if>
+		  		  <if test="separateInto != null and separateInto != ''"> and separate_into = #{separateInto} </if>
+		  		  <if test="teacherLevel != null and teacherLevel != ''"> and teacher_level = #{teacherLevel} </if>
+		  		  <if test="questionMoney != null and questionMoney != ''"> and question_money = #{questionMoney} </if>
+		  		  <if test="userLoginType != null and userLoginType != ''"> and user_login_type = #{userLoginType} </if>
+		  		   <if test="couponCount != null and couponCount != ''">`coupon_count` = #{couponCount}</if>
+					<if test="integral != null and integral != ''">`integral` = #{integral}</if>
+					<if test="gold != null and gold != ''" >`gold` = #{gold}</if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from t_user
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="heardUrl != null and heardUrl != ''"> and heard_url = #{heardUrl} </if>
+		  		  <if test="username != null and username != ''"> and username = #{username} </if>
+		  		  <if test="sex != null and sex != ''"> and sex = #{sex} </if>
+		  		  <if test="birthday != null and birthday != ''"> and birthday = #{birthday} </if>
+		  		  <if test="loginTime != null and loginTime != ''"> and login_time = #{loginTime} </if>
+		  		  <if test="usedTime != null and usedTime != ''"> and used_time = #{usedTime} </if>
+		  		  <if test="nickname != null and nickname != ''"> and nickname = #{nickname} </if>
+		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
+		  		  <if test="openId != null and openId != ''"> and open_id = #{openId} </if>
+		  		  <if test="password != null and password != ''"> and password = #{password} </if>
+		  		  <if test="phone != null and phone != ''"> and phone = #{phone} </if>
+		  		  <if test="name != null and name != ''"> and name = #{name} </if>
+		  		  <if test="registerTime != null and registerTime != ''"> and register_time = #{registerTime} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  <if test="graduateInstitutions != null and graduateInstitutions != ''"> and graduate_institutions = #{graduateInstitutions} </if>
+		  		  <if test="professionName != null and professionName != ''"> and profession_name = #{professionName} </if>
+		  		  <if test="firstDegree != null and firstDegree != ''"> and first_degree = #{firstDegree} </if>
+		  		  <if test="highestEducation != null and highestEducation != ''"> and highest_education = #{highestEducation} </if>
+		  		  <if test="subject != null and subject != ''"> and subject = #{subject} </if>
+		  		  <if test="mailingAddress != null and mailingAddress != ''"> and mailing_address = #{mailingAddress} </if>
+		  		  <if test="deleteFlag != null and deleteFlag != ''"> and delete_flag = #{deleteFlag} </if>
+		  		  <if test="registrationSource != null and registrationSource != ''"> and registration_source = #{registrationSource} </if>
+		  		  <if test="level != null and level != ''"> and level = #{level} </if>
+		  		  <if test="auditStatus != null and auditStatus != ''"> and audit_status = #{auditStatus} </if>
+		  		  <if test="exportStatus != null and exportStatus != ''"> and export_status = #{exportStatus} </if>
+		  		  <if test="redound != null and redound != ''"> and redound = #{redound} </if>
+		  		  <if test="separateInto != null and separateInto != ''"> and separate_into = #{separateInto} </if>
+		  		  <if test="teacherLevel != null and teacherLevel != ''"> and teacher_level = #{teacherLevel} </if>
+		  		  <if test="questionMoney != null and questionMoney != ''"> and question_money = #{questionMoney} </if>
+		  		  <if test="userLoginType != null and userLoginType != ''"> and user_login_type = #{userLoginType} </if>
+		  		  <if test="couponCount != null and couponCount != ''">`coupon_count` = #{couponCount}</if>
+					<if test="integral != null and integral != ''">`integral` = #{integral}</if>
+					<if test="gold != null and gold != ''" >`gold` = #{gold}</if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.sockettcp.owneruser.domain.UserDO" useGeneratedKeys="true" keyProperty="id">
+		insert into t_user
+		(
+			`heard_url`, 
+			`username`, 
+			`sex`, 
+			`birthday`, 
+			`login_time`, 
+			`used_time`, 
+			`nickname`, 
+			`user_id`, 
+			`open_id`, 
+			`password`, 
+			`phone`, 
+			`name`, 
+			`register_time`, 
+			`update_time`, 
+			`graduate_institutions`, 
+			`profession_name`, 
+			`first_degree`, 
+			`highest_education`, 
+			`subject`, 
+			`mailing_address`, 
+			`delete_flag`, 
+			`registration_source`, 
+			`level`, 
+			`audit_status`, 
+			`export_status`, 
+			`redound`, 
+			`separate_into`, 
+			`teacher_level`, 
+			`question_money`, 
+			`user_login_type`,
+			coupon_count,
+			integral,
+			gold 
+		)
+		values
+		(
+			#{heardUrl}, 
+			#{username}, 
+			#{sex}, 
+			#{birthday}, 
+			#{loginTime}, 
+			#{usedTime}, 
+			#{nickname}, 
+			#{userId}, 
+			#{openId}, 
+			#{password}, 
+			#{phone}, 
+			#{name}, 
+			#{registerTime}, 
+			#{updateTime}, 
+			#{graduateInstitutions}, 
+			#{professionName}, 
+			#{firstDegree}, 
+			#{highestEducation}, 
+			#{subject}, 
+			#{mailingAddress}, 
+			#{deleteFlag}, 
+			#{registrationSource}, 
+			#{level}, 
+			#{auditStatus}, 
+			#{exportStatus}, 
+			#{redound}, 
+			#{separateInto}, 
+			#{teacherLevel}, 
+			#{questionMoney}, 
+			#{userLoginType},
+			#{couponCount},
+			#{integral},
+			#{gold} 
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.sockettcp.owneruser.domain.UserDO">
+		update t_user 
+		<set>
+			<if test="heardUrl != null">`heard_url` = #{heardUrl}, </if>
+			<if test="username != null">`username` = #{username}, </if>
+			<if test="sex != null">`sex` = #{sex}, </if>
+			<if test="birthday != null">`birthday` = #{birthday}, </if>
+			<if test="loginTime != null">`login_time` = #{loginTime}, </if>
+			<if test="usedTime != null">`used_time` = #{usedTime}, </if>
+			<if test="nickname != null">`nickname` = #{nickname}, </if>
+			<if test="userId != null">`user_id` = #{userId}, </if>
+			<if test="openId != null">`open_id` = #{openId}, </if>
+			<if test="password != null">`password` = #{password}, </if>
+			<if test="phone != null">`phone` = #{phone}, </if>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="registerTime != null">`register_time` = #{registerTime}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="graduateInstitutions != null">`graduate_institutions` = #{graduateInstitutions}, </if>
+			<if test="professionName != null">`profession_name` = #{professionName}, </if>
+			<if test="firstDegree != null">`first_degree` = #{firstDegree}, </if>
+			<if test="highestEducation != null">`highest_education` = #{highestEducation}, </if>
+			<if test="subject != null">`subject` = #{subject}, </if>
+			<if test="mailingAddress != null">`mailing_address` = #{mailingAddress}, </if>
+			<if test="deleteFlag != null">`delete_flag` = #{deleteFlag}, </if>
+			<if test="registrationSource != null">`registration_source` = #{registrationSource}, </if>
+			<if test="level != null">`level` = #{level}, </if>
+			<if test="auditStatus != null">`audit_status` = #{auditStatus}, </if>
+			<if test="exportStatus != null">`export_status` = #{exportStatus}, </if>
+			<if test="redound != null">`redound` = #{redound}, </if>
+			<if test="separateInto != null">`separate_into` = #{separateInto}, </if>
+			<if test="teacherLevel != null">`teacher_level` = #{teacherLevel}, </if>
+			<if test="questionMoney != null">`question_money` = #{questionMoney}, </if>
+			<if test="userLoginType != null">`user_login_type` = #{userLoginType},</if>
+			<if test="couponCount != null">`coupon_count` = #{couponCount},</if>
+			<if test="integral != null">`integral` = #{integral},</if>
+			<if test="gold != null">`gold` = #{gold},</if>
+			<if test="QRCode != null">`QRCode` = #{QRCode}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from t_user where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from t_user where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+<update id="updateGoldCount">
+	update t_user set gold=ifnull(gold,0)+#{gold} where id=#{id}
+</update>
+<update id="updateIntegralCount">
+	update t_user set integral=ifnull(integral,0)+#{integral} where id=#{id}
+</update>
+<update id="cutGoldCount">
+	update t_user set gold = gold - #{gold} where id= #{id}
+</update>
+</mapper>

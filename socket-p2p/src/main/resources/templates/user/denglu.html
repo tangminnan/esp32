@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" href="/css/css.css" type="text/css">
+<title>登录</title>
+<script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/js/Font.js"></script>
+</head>
+<body class="bg-white">	
+	<div class="zhuce">
+		<img src="/img/denglu.png" alt="">
+		<div class="zhuce-txt" style="margin:1rem auto 0;">
+			<p><input type="text" class="phone" name="phone" maxlength="11" placeholder="输入手机号"/></p>
+			<p><input class="mima" name="mima" type="password" placeholder="输入密码"/></p>
+			<!-- <div class="ZCyz">
+				<input class="fl" type="text" placeholder="验证码"/>
+				<input class="fr font-20 white" type="button" id="btn" value="获取验证码" onclick="getSms(this)" /> 
+			</div> -->
+		</div>
+		<!--  <div style="font-size:.24rem;margin:auto 0;">
+            <input type="checkbox" name="" id="ckBox" style="-webkit-appearance: checkbox;">勾选可绑定微信
+	    </div> -->
+		<div class="wangji">
+			<input type="button"  class="btn" style="margin:1rem auto .3rem;" value="登陆" onclick="tijiao()"/>
+			<a href="/zhaohuimima" class="font-24">忘记密码？</a>
+			<a href="/zhuce" class="font-40 c-blue">注册</a>
+		</div>
+	</div>
+</body>
+</html>
+<script type="text/javascript"> 
+	var countdown=60; 
+	
+	function getSms(val){		
+		$.ajax({
+			url: '/getSms',
+			type: 'post',
+			data: {
+				'phone': $('.phone').val(),
+				'type':1
+			},
+			success : function(message) {
+				console.log(message.msg)
+				if(message.msg == "发送成功"){
+					settime(val)
+				}
+			}
+		})
+	}
+	
+	function tijiao(){
+		$.ajax({
+			url: '/login',
+			type: 'post',
+			data: {
+				'phone': $('.phone').val(),
+				'password' : $('.mima').val()
+			},
+			success : function(message) {
+				if(message.msg == '登录成功'){
+					/* $("#ckBox").is(":checked"){//绑定微信
+						window.location.href="/wechat"
+					} */
+					window.location.href = "/wode";
+				}else{
+					alert(message.msg)
+				}
+			}
+		})
+	}
+	
+	
+	function settime(val) { 
+		if (countdown == 0) { 
+			val.removeAttribute("disabled");    
+			val.value="免费获取验证码"; 
+			countdown = 60; 			
+		} else { 
+			val.setAttribute("disabled", true); 
+			val.value="重新发送(" + countdown +"s)"; 
+			countdown--; 
+		} 
+		setTimeout(function() { 
+			settime(val) 
+		},1000)
+	} 
+	
+	function wxLogin(){
+		
+		window.location.href = "/wx_denglu";
+		
+	}
+</script> 
